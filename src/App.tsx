@@ -2,21 +2,48 @@ import React from "react";
 import Header from "./components/header";
 import { Alert, Col, Row } from "antd";
 import Card from "./components/card/Card";
-import { useGetBrigadesDataQuery } from "./store/api/cardInfoQuery";
+import {
+  useGetBrigadesDataQuery,
+  useGetConnectionStateQuery,
+  useGetDepartmentsQuery,
+} from "./store/api/cardInfoQuery";
 
 function App() {
-  const { isLoading, data, isError, error } = useGetBrigadesDataQuery();
-  console.log(data);
-  if (isLoading) return <>Loading...</>;
-  if (isError) return <Alert type="error" message="Произошла ошибка при загрузке занных" />;
+  const {
+    isLoading: brigadesIsLoading,
+    data: brigadesData,
+    isError: brigadesIsError,
+    error: brigadesError,
+  } = useGetBrigadesDataQuery();
+  const {
+    isLoading: departmentIsLoading,
+    data: departmentData,
+    isError: departmentIsError,
+    error: departmentError,
+  } = useGetDepartmentsQuery();
+  const {
+    isLoading: connectionStateIsLoading,
+    data: connectionStateData,
+    isError: connectionStateIsError,
+    error: connectionStateError,
+  } = useGetConnectionStateQuery();
+
+  console.log(brigadesData);
+  if (brigadesIsLoading) return <>Loading...</>;
+  if (brigadesIsError) {
+    console.log(brigadesError);
+    return (
+      <Alert type="error" message="Произошла ошибка при загрузке занных" />
+    );
+  }
 
   return (
     <>
       <Header />
-      {
-        isError && <Alert type="error" message="Произошла ошибка при загрузке занных" />
-      }
-      {data?.map(
+      {brigadesIsError && (
+        <Alert type="error" message="Произошла ошибка при загрузке занных" />
+      )}
+      {brigadesData?.map(
         ({ brigade_name, connectionStateId, department, position, id }) => {
           return (
             <Card
