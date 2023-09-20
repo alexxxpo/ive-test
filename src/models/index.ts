@@ -6,12 +6,22 @@ export interface ICardsData {
     position: Position;
   }
   
-  export interface Position {
+  interface Position {
     field: string;
     cluster: number;
     well: number;
   }
   
-  export interface Department {
+  interface Department {
     id: number;
+  }
+
+  export interface IDepartment {
+    id: number
+    name: string
+  }
+
+  export interface IConnectionState {
+    connectionStateId: number
+    name: string
   }
