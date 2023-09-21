@@ -17,11 +17,16 @@ export interface ICardsData {
   }
 
   export interface IDepartment {
-    id: number
-    name: string
+    id: number;
+    name: string;
   }
 
   export interface IConnectionState {
-    connectionStateId: number
-    name: string
+    connectionStateId: number;
+    name: string;
+  }
+
+  export interface IPoints {
+    x: string;
+    y: number;
   }

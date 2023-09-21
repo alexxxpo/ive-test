@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { ICardsData, IConnectionState, IDepartment } from './../../models'
+import type { ICardsData, IConnectionState, IDepartment, IPoints } from './../../models'
 
 export const cardsDataApi = createApi({
   reducerPath: 'cardsData',
@@ -14,7 +14,10 @@ export const cardsDataApi = createApi({
     getConnectionState: builder.query<IConnectionState[], void>({
       query: () => `getConnectionState`,
     }),
+    getPointsFast: builder.query<IPoints[], number>({
+      query: (numberOfPoints) => `getPointsFast?points=${numberOfPoints}`,
+    }),
   }),
 })
 
-export const { useGetBrigadesDataQuery, useGetDepartmentsQuery, useGetConnectionStateQuery } = cardsDataApi
+export const { useGetBrigadesDataQuery, useGetDepartmentsQuery, useGetConnectionStateQuery, useGetPointsFastQuery } = cardsDataApi

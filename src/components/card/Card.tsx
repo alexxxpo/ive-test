@@ -13,7 +13,6 @@ const CardElement: React.FC<ICardProps> = ({ brigade, cluster, connection, depar
     return (
         <>
             <Card title={brigade}>
-
                 {department}
                 <br />
                 <br />
