@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/header";
-import { Alert, Col, Row } from "antd";
+import { Alert, List} from "antd";
 import Card from "./components/card/Card";
 import {
   useGetBrigadesDataQuery,
@@ -15,12 +15,14 @@ function App() {
     isError: brigadesIsError,
     error: brigadesError,
   } = useGetBrigadesDataQuery();
+
   const {
     isLoading: departmentIsLoading,
     data: departmentData,
     isError: departmentIsError,
     error: departmentError,
   } = useGetDepartmentsQuery();
+
   const {
     isLoading: connectionStateIsLoading,
     data: connectionStateData,
@@ -28,44 +30,67 @@ function App() {
     error: connectionStateError,
   } = useGetConnectionStateQuery();
 
-  console.log(brigadesData);
-  if (brigadesIsLoading) return <>Loading...</>;
-  if (brigadesIsError) {
-    console.log(brigadesError);
-    return (
-      <Alert type="error" message="Произошла ошибка при загрузке занных" />
-    );
-  }
+  const [connection, setConnection] = useState<string[]>();
+  const [dep, setDep] = useState<string[]>();
 
+  useEffect(() => {
+    const arr: string[] = [];
+    connectionStateData?.forEach((item) => {
+      arr[item.connectionStateId] = item.name;
+    })
+    setConnection(arr);
+  }, [connectionStateData]);
+
+
+  useEffect(() => {
+    const arr: string[] = [];
+    departmentData?.forEach((item) => {
+      arr[item.id] = item.name;
+    })
+    setDep(arr);
+  }, [departmentData]);  
+
+  if (brigadesIsLoading) return <>Loading...</>;
+  if (brigadesIsError) console.error(brigadesError);
+  
   return (
     <>
       <Header />
       {brigadesIsError && (
         <Alert type="error" message="Произошла ошибка при загрузке занных" />
       )}
-      {brigadesData?.map(
-        ({ brigade_name, connectionStateId, department, position, id }) => {
-          return (
+      <List
+        grid={{
+          gutter: 16,
+          xs: 1,
+          sm: 1,
+          md: 2,
+          lg: 2,
+          xl: 3,
+          xxl: 4,
+        }}
+        dataSource={brigadesData}
+        renderItem={({
+          brigade_name,
+          connectionStateId,
+          department,
+          id,
+          position,
+        }) => (
+          <List.Item>
             <Card
               key={id}
               brigade={brigade_name}
               cluster={position.cluster}
-              connection={connectionStateId === 0 ? "Недоступен" : "Доступен"}
-              department={
-                department.id === 0
-                  ? "Лукойл"
-                  : department.id === 1
-                  ? "Роснефть"
-                  : "Газпром нефть"
-              }
+              connection={connection ? connection[connectionStateId] : 'Нет данных с сервера'}
+              department={dep ? dep[department.id] : 'Нет данных с сервера'}
               field={position.field}
               well={position.well}
             ></Card>
-          );
-        }
-      )}
+          </List.Item>
+        )}
+      ></List>
     </>
   );
 }
-
 export default App;
