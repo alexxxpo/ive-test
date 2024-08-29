@@ -1,46 +1,18 @@
-# Getting Started with Create React App
+Приложение должно быть создано с помощью create-react-app, с использованием redux, rest API и написано на typescript в функциональном стиле.
+На время загрузки данных должен отображаться прелоадер. Если сервер с данными недоступен, должно выводиться предупреждающее сообщение.
+Приложение должно быть адаптировано как в десктопной, так и в мобильной версии браузера.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+На первой странице:
+Внешний вид страницы состоит из фильтра состояния соединения, департаментов и «плиток» (плитки выделены зелёным) бригад. Вёрстка должна быть выполнена с использованием библиотеки https://ant.design/. Пример странички: https://v1336-test-task.vercel.app/. В плитках бригады вместо пагинации нужно использовать скролл. Количество плиток в окне браузера должно быть максимальным, но информация в плитках не должна теряться и искажаться.
+![alt text](image.png)
+На второй странице:
+Должен быть график и элементы ввода кол-ва точек и загрузки точек (использовать ant.design). Построить график используя библиотеку «highcharts» https://www.highcharts.com/, тип графика { type: 'line', step: 'left' },
 
-## Available Scripts
+Данные забираются методами: 
+https://v1336-api-test.onrender.com/getBrigadesData - получение бригад с данными
+https://v1336-api-test.onrender.com/getDepartments - получение департаментов
+https://v1336-api-test.onrender.com/getConnectionState - получение статусов подключения
+https://v1336-api-test.onrender.com/getPointsFast?points=1000 — получение точек(points — кол-во точек от 1 до 1000000).
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Выложить проект на Git для ознакомления с кодом.
+Разместить проект на любой удобный хостинг для демонстрации.
